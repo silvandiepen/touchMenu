@@ -97,7 +97,7 @@ $.fn.touchMenu = function(options){
 
   $(window).on('click',function(){
     if(temp.open && !temp.inmenu){
-      <tMenu class="close"></tMenu>(true);
+      tMenu.close(true);
     }
   });
 };
