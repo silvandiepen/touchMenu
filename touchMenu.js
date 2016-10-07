@@ -37,15 +37,12 @@ $.fn.touchMenu = function(options){
   tMenu.stopCloseMenu = function(e) {
       temp.inmenu = true;
       if (menu.hasClass('closing')) {
-          console.log('mouseenter triggered');
           clearTimeout(settings.remover);
-          console.log(settings.remover);
           menu.removeClass('closing').addClass('noclose');
       }
   };
 
   tMenu.startMenu = function(e) {
-      console.log('mousedown triggered');
       menu.addClass('clicking');
       temp.openMenu = setTimeout(function() {
           menu.removeClass('clicking').addClass('open');
@@ -53,7 +50,6 @@ $.fn.touchMenu = function(options){
       }, settings.openMenu);
   };
   tMenu.moveMenu = function(e) {
-    console.log('its moving');
       if (!menu.hasClass('open')) {
           menu.css({
               left: e.pageX,
@@ -64,7 +60,6 @@ $.fn.touchMenu = function(options){
   tMenu.stopMenu = function(e) {
     //  show(temp.clickTime);
       // if (temp.clickTime > 99) {
-          console.log('mouseup triggered');
           menu.removeClass('clicking');
           clearTimeout(settings.initClick);
           clearTimeout(temp.openMenu);
