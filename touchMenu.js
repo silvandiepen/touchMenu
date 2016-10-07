@@ -103,7 +103,9 @@ $.fn.touchMenu = function(options){
     });
   }
   else if(settings.action == 'open'){
-    menu.start();
+	  if(temp.open){
+		  menu.close(); 
+	  } else { menu.start();  }
   }
 
 };
