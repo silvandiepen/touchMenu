@@ -15,7 +15,7 @@ $.fn.touchMenu = function(options){
   
   menu.addClass('touchMenu');
 
-  tMenu.close = function(direct) {
+  menu.close = function(direct) {
       temp.inmenu = false;
       if (menu.hasClass('open')) {
           if(direct){
@@ -33,7 +33,7 @@ $.fn.touchMenu = function(options){
       }
   };
 
-  tMenu.stopclose = function(e) {
+  menu.stopclose = function(e) {
       temp.inmenu = true;
       if (menu.hasClass('closing')) {
           clearTimeout(settings.remover);
@@ -41,14 +41,14 @@ $.fn.touchMenu = function(options){
       }
   };
 
-  tMenu.start = function(e) {
+  menu.start = function(e) {
       menu.addClass('clicking');
       temp.openMenu = setTimeout(function() {
           menu.removeClass('clicking').addClass('open');
           temp.open = true;
       }, settings.openMenu);
   };
-  tMenu.move = function(e) {
+  menu.move = function(e) {
       if (!menu.hasClass('open')) {
           menu.css({
               left: e.pageX,
@@ -56,7 +56,7 @@ $.fn.touchMenu = function(options){
           });
       }
   };
-  tMenu.stop = function(e) {
+  menu.stop = function(e) {
 //       if (temp.clickTime > 99) {
           menu.removeClass('clicking');
           clearTimeout(settings.initClick);
@@ -67,11 +67,11 @@ $.fn.touchMenu = function(options){
 
 
   menu.on('mouseenter', function(e) {
-      tMenu.stopclose();
+      menu.stopclose();
   });
 
   menu.on('mouseleave', function(e) {
-      tMenu.close();
+      menu.close();
   });
 
   $(window).on('mousedown', function(e) {
@@ -80,24 +80,24 @@ $.fn.touchMenu = function(options){
         temp.clickTime++;
         if (temp.clickTime > settings.startClick) {
           //show(temp.clickTime + ' > ' +  settings.startClick);
-          tMenu.start(e);
+          menu.start(e);
         }
     }, 1);
   });
 
   $(window).on('mousemove', function(e) {
     // alert('hoi');
-    tMenu.move(e);
+    menu.move(e);
   });
 
   // // While clicking, moveup;
   $(window).on('mouseup', function(e) {
-    tMenu.stop(e);
+    menu.stop(e);
   });
 
   $(window).on('click',function(){
     if(temp.open && !temp.inmenu){
-      tMenu.close(true);
+      menu.close(true);
     }
   });
 };
