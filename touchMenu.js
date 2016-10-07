@@ -13,6 +13,8 @@ $.fn.touchMenu = function(options){
       openMenu: 600,
       fullscreen: false
   }, options );
+  
+  menu.addClass('touchMenu');
 
   tMenu.closeMenu = function(direct) {
       temp.inmenu = false;
