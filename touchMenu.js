@@ -1,5 +1,4 @@
 $.fn.touchMenu = function(options){
-  var tMenu = {};
   var temp = {
     inmenu: true,
     open: false,
@@ -16,7 +15,7 @@ $.fn.touchMenu = function(options){
   
   menu.addClass('touchMenu');
 
-  tMenu.closeMenu = function(direct) {
+  tMenu.close = function(direct) {
       temp.inmenu = false;
       if (menu.hasClass('open')) {
           if(direct){
@@ -34,7 +33,7 @@ $.fn.touchMenu = function(options){
       }
   };
 
-  tMenu.stopCloseMenu = function(e) {
+  tMenu.stopclose = function(e) {
       temp.inmenu = true;
       if (menu.hasClass('closing')) {
           clearTimeout(settings.remover);
@@ -42,14 +41,14 @@ $.fn.touchMenu = function(options){
       }
   };
 
-  tMenu.startMenu = function(e) {
+  tMenu.start = function(e) {
       menu.addClass('clicking');
       temp.openMenu = setTimeout(function() {
           menu.removeClass('clicking').addClass('open');
           temp.open = true;
       }, settings.openMenu);
   };
-  tMenu.moveMenu = function(e) {
+  tMenu.move = function(e) {
       if (!menu.hasClass('open')) {
           menu.css({
               left: e.pageX,
@@ -57,23 +56,22 @@ $.fn.touchMenu = function(options){
           });
       }
   };
-  tMenu.stopMenu = function(e) {
-    //  show(temp.clickTime);
-      // if (temp.clickTime > 99) {
+  tMenu.stop = function(e) {
+//       if (temp.clickTime > 99) {
           menu.removeClass('clicking');
           clearTimeout(settings.initClick);
           clearTimeout(temp.openMenu);
-      // }
+//       }
       clearInterval(settings.interval);
   };
 
 
   menu.on('mouseenter', function(e) {
-      tMenu.stopCloseMenu();
+      tMenu.stopclose();
   });
 
   menu.on('mouseleave', function(e) {
-      tMenu.closeMenu();
+      tMenu.close();
   });
 
   $(window).on('mousedown', function(e) {
@@ -82,30 +80,24 @@ $.fn.touchMenu = function(options){
         temp.clickTime++;
         if (temp.clickTime > settings.startClick) {
           //show(temp.clickTime + ' > ' +  settings.startClick);
-          tMenu.startMenu(e);
+          tMenu.start(e);
         }
     }, 1);
   });
 
   $(window).on('mousemove', function(e) {
     // alert('hoi');
-    tMenu.moveMenu(e);
+    tMenu.move(e);
   });
 
   // // While clicking, moveup;
   $(window).on('mouseup', function(e) {
-    tMenu.stopMenu(e);
+    tMenu.stop(e);
   });
 
   $(window).on('click',function(){
     if(temp.open && !temp.inmenu){
-      tMenu.closeMenu(true);
+      <tMenu class="close"></tMenu>(true);
     }
   });
-
-
-
-
-
-
 };
