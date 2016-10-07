@@ -1,0 +1,2 @@
+$.fn.touchMenu = function(options){
+};
