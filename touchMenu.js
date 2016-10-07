@@ -58,11 +58,9 @@ $.fn.touchMenu = function(options){
       }
   };
   menu.stop = function(e) {
-//       if (temp.clickTime > 99) {
-          menu.removeClass('clicking');
-          clearTimeout(settings.initClick);
-          clearTimeout(temp.openMenu);
-//       }
+      menu.removeClass('clicking');
+      clearTimeout(settings.initClick);
+      clearTimeout(temp.openMenu);
       clearInterval(settings.interval);
   };
 
@@ -103,8 +101,7 @@ $.fn.touchMenu = function(options){
     });
   }
   else if(settings.action == 'open'){
-	  if(temp.open){
-		  menu.close(); 
+	  if(temp.open){ menu.close(); 
 	  } else { menu.start();  }
   }
 
