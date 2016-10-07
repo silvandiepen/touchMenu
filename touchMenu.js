@@ -6,13 +6,14 @@ $.fn.touchMenu = function(options){
   };
   var menu = $(this);
   var settings = $.extend({
+      action: 'init',
       fadeAway: 1000,
       fadeAwayStart: 200,
       startClick: 50,
       openMenu: 600,
       fullscreen: false
   }, options );
-  
+
   menu.addClass('touchMenu');
 
   menu.close = function(direct) {
@@ -65,39 +66,49 @@ $.fn.touchMenu = function(options){
       clearInterval(settings.interval);
   };
 
+  if(settings.action == 'init'){
+    menu.on('mouseenter', function(e) {
+        menu.stopclose();
+    });
 
-  menu.on('mouseenter', function(e) {
-      menu.stopclose();
-  });
+    menu.on('mouseleave', function(e) {
+        menu.close();
+    });
 
-  menu.on('mouseleave', function(e) {
-      menu.close();
-  });
+    $(window).on('mousedown', function(e) {
+      temp.clickTime = 0;
+      settings.interval = setInterval(function() {
+          temp.clickTime++;
+          if (temp.clickTime > settings.startClick) {
+            //show(temp.clickTime + ' > ' +  settings.startClick);
+            menu.start(e);
+          }
+      }, 1);
+    });
 
-  $(window).on('mousedown', function(e) {
-    temp.clickTime = 0;
-    settings.interval = setInterval(function() {
-        temp.clickTime++;
-        if (temp.clickTime > settings.startClick) {
-          //show(temp.clickTime + ' > ' +  settings.startClick);
-          menu.start(e);
-        }
-    }, 1);
-  });
+    $(window).on('mousemove', function(e) {
+      // alert('hoi');
+      menu.move(e);
+    });
 
-  $(window).on('mousemove', function(e) {
-    // alert('hoi');
-    menu.move(e);
-  });
+    // // While clicking, moveup;
+    $(window).on('mouseup', function(e) {
+      menu.stop(e);
+    });
 
-  // // While clicking, moveup;
-  $(window).on('mouseup', function(e) {
-    menu.stop(e);
-  });
+    $(window).on('click',function(){
+      if(temp.open && !temp.inmenu){
+        menu.close(true);
+      }
+    });
+  }
+  else if(settings.action == 'open'){
+    menu.start();
+  }
 
-  $(window).on('click',function(){
-    if(temp.open && !temp.inmenu){
-      menu.close(true);
-    }
-  });
+};
+
+$.fn.touchMenuAction = function(options){
+
+
 };
