@@ -49,14 +49,36 @@ $.fn.touchMenu = function(options){
           temp.open = true;
       }, settings.openMenu);
   };
+
+  menu.sleep = function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  };
+
+  var position = {},difference = {};
   menu.move = function(e) {
       if (!menu.hasClass('open')) {
-          menu.css({
-              left: e.pageX,
-              top: e.pageY
-          });
+        difference.y = Math.abs(position.pageY - e.pageY);
+        difference.x = Math.abs(position.pageX - e.pageX);
+        // menu.css({
+        //     left: e.pageX,
+        //     top: e.pageY
+        // });
+
+        TweenMax.to(menu, 1.8, {
+          css: { left: e.pageX, top: e.pageY },
+          ease: Elastic.easeOut
+        });
+
+        position = { pageX: e.pageX, pageY: e.pageY};
       }
   };
+
+
   menu.stop = function(e) {
       menu.removeClass('clicking');
       clearTimeout(settings.initClick);
@@ -85,7 +107,6 @@ $.fn.touchMenu = function(options){
     });
 
     $(window).on('mousemove', function(e) {
-      // alert('hoi');
       menu.move(e);
     });
 
@@ -101,7 +122,7 @@ $.fn.touchMenu = function(options){
     });
   }
   else if(settings.action == 'open'){
-	  if(temp.open){ menu.close(); 
+	  if(temp.open){ menu.close();
 	  } else { menu.start();  }
   }
 
