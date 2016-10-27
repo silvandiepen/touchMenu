@@ -3,7 +3,7 @@
 A work in progress, working on an extension to create a touch Menu which opens on longer clicks. 
 
 
-### Initialize keypress (example)
+### Initialize touchMenu (example)
 
 ```javascript
 	
